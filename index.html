@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Friendship Day Wish</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    input {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .card {
+      text-align: center;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      max-width: 90%;
+    }
+
+    .card h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: #ffeb3b;
+    }
+
+    .card p {
+      font-size: 20px;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 5s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+    @media (max-width: 600px) {
+  form, .card {
+    width: 90%;
+    padding: 20px;
+  }
+
+  input {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .card h1 {
+    font-size: 28px;
+  }
+
+  .card p {
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container" id="form-container">
+    <form id="nameForm">
+      <h2 style="text-align: center;">Apna Naam Likhiye</h2>
+      <input type="text" id="friendName" placeholder="Naam yahan likhiye" required />
+      <button type="submit">Wish Karein</button>
+    </form>
+  </div>
+
+  <div class="container" id="wish-container" style="display: none;">
+    <div class="card">
+      <h1>🎉 Happy Friendship Day 🎉</h1>
+      <p id="personalMsg"></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("nameForm");
+    const wishContainer = document.getElementById("wish-container");
+    const formContainer = document.getElementById("form-container");
+    const personalMsg = document.getElementById("personalMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("friendName").value;
+      personalMsg.innerHTML = `
+        <strong>प्रिय ${name},</strong><br><br>
+        तेरी दोस्ती मेरी ज़िंदगी की सबसे खूबसूरत दौलत है।<br>
+        तू हर दुख में मेरा सहारा बना, और हर खुशी में मेरी मुस्कान।<br>
+        तेरे बिना ज़िंदगी अधूरी लगती है।<br><br>
+        <strong>Happy Friendship Day ❤️</strong><br>
+        हमेशा साथ रहने के लिए शुक्रिया!
+      `;
+      formContainer.style.display = "none";
+      wishContainer.style.display = "flex";
+    });
+
+    // Create animated hearts
+    const heartsContainer = document.getElementById("hearts");
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 5 + "s";
+      heart.style.opacity = Math.random();
+      heartsContainer.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
